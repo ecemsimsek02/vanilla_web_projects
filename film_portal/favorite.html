@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Favorite Lists</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🎬 My Favorite Lists</h1>
+
+  <div class="tags">
+    <span class="tag active" data-type="films">Films</span>
+    <span class="tag" data-type="series">Series</span>
+    <span class="tag" data-type="directors">Directors</span>
+    <span class="tag" data-type="documentaries">Documentaries</span>
+  </div>
+
+  <div id="listsContainer"></div>
+
+  <script>
+    const tags = document.querySelectorAll('.tag');
+    const container = document.getElementById('listsContainer');
+    const lists = JSON.parse(localStorage.getItem('favoriteLists')) || [];
+
+    let activeType = 'films';
+    renderFilteredLists();
+
+    tags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        tags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+        activeType = tag.getAttribute('data-type');
+        renderFilteredLists();
+      });
+    });
+function renderFilteredLists() {
+  container.innerHTML = '';
+  const lists = JSON.parse(localStorage.getItem('favoriteLists')) || [];
+  const filtered = lists.filter(l => l.type === activeType);
+
+  if (filtered.length === 0) {
+    container.innerHTML = "<p>No lists in this category.</p>";
+    return;
+  }
+
+  filtered.forEach(list => {
+    const section = document.createElement('section');
+    section.className = 'list-section';
+
+    section.innerHTML = `
+      <h2 class="list-title">${list.listName}</h2>
+      <ul class="film-list hidden">${list.items.map(f => `<li>${f}</li>`).join('')}</ul>
+    `;
+    container.appendChild(section);
+  });
+
+  document.querySelectorAll('.list-title').forEach(title => {
+    title.addEventListener('click', () => {
+      const ul = title.nextElementSibling;
+      ul.classList.toggle('hidden');
+    });
+  });
+}
+  </script>
+</body>
+</html>

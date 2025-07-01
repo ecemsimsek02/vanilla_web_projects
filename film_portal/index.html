@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie/Series Platform</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎥 Discover</h1>
+   <div class="search-area">
+     <input type="text" id="search" placeholder="Search..." />
+
+     <div class="search-extended hidden">
+      <div class="tags">
+        <span class="tag active" data-type="films">Films</span>
+        <span class="tag" data-type="series">Series</span>
+        <span class="tag" data-type="directors">Directors</span>
+        <span class="tag" data-type="documentaries">Documentaries</span>
+      </div>
+
+      <button id="createList">Create Favorite Films List</button>
+      <a href="favorite.html" class="fav-link">Go to My Favorites</a>
+    
+      <div id="results"></div>
+
+      <h3 id="popularTitle">Popular Searches</h3>
+      <ul id="popular" class="popular-searches"></ul>
+    </div>
+  </div>
+
+  </div>
+<div id="listModal" class="hidden modal">
+  <div class="modal-content">
+    <input type="text" id="listNameInput" placeholder="Enter list name" />
+    <button id="saveListBtn">Save List</button>
+  </div>
+</div>
+<div id="chooseListModal" class="hidden modal">
+  <div class="modal-content">
+    <h3>Choose a list to add this film:</h3>
+    <select id="listSelectDropdown"></select>
+    <button id="confirmAddBtn">Add</button>
+  </div>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>
