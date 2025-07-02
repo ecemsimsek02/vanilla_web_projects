@@ -4,6 +4,7 @@ const results = document.getElementById('results');
 const tags = document.querySelectorAll('.tag');
 const createList = document.getElementById('createList');
 const popularList = document.getElementById('popular');
+const currentSearchTerm = searchInput.value.trim();
 let selectedFilm = null;
 
 let currentType = 'films';
@@ -59,17 +60,13 @@ function saveSearchTerm(term) {
   }
 }
 function renderPopularSearches() {
-  const lists = JSON.parse(localStorage.getItem('favoriteLists')) || [];
+  const searches = JSON.parse(localStorage.getItem('recent_searches')) || [];
 
-
-  const allItems = lists.map(list => list.items).flat();
-  const uniqueItems = [...new Set(allItems)];
-
-  if (uniqueItems.length === 0) {
-    popularList.innerHTML = "<li>No items added yet</li>";
+  if (searches.length === 0) {
+    popularList.innerHTML = "<li>No popular searches yet</li>";
   } else {
-    popularList.innerHTML = uniqueItems
-      .map(item => `<li>${item}</li>`)
+    popularList.innerHTML = searches
+      .map(term => `<li>${term}</li>`)
       .join('');
   }
 }
@@ -172,5 +169,96 @@ document.addEventListener('click', (e) => {
 
   document.querySelector('.search-extended').classList.add('hidden');
 });
+
+document.getElementById('searchBtn').addEventListener('click', () => {
+  const term = searchInput.value.trim();
+  if (term) {
+    saveSearchTerm(term);  // popular list'e ekle
+    updateResults(term);   // istersen hemen arama da yapsın
+  }
+});
+const pages = {
+  "e-Hizmetler": [
+    { title: "Öğrenci Belgesi", url: "ogrenci_belgesi.html" },
+    { title: "Adres Değişikliği", url: "adres_degistirme.html" }
+  ],
+  "Kurum Portalları": [
+    { title: "Kurum Portalı Ana Sayfa", url: "kurum_portali.html" },
+    { title: "Personel İşlemleri", url: "personel.html" }
+  ],
+  "Belediye Hizmetleri": [
+    { title: "Çöp Toplama Takvimi", url: "cop_toplama.html" },
+    { title: "Belediye Duyuruları", url: "duyurular.html" }
+  ],
+  "Kurumların Sunduğu": [
+    { title: "Sağlık Hizmetleri", url: "saglik.html" },
+    { title: "Transkript", url: "transkript.html" }
+  ],
+  "Kurum Adında Ara": [
+    { title: "Kurum Ara", url: "kurum_ara.html" }
+  ],
+  "Belediye Adında Ara": [
+    { title: "Belediye Ara", url: "belediye_ara.html" }
+  ]
+};
+
+const searchResults = document.getElementById('searchResults');
+const resultsContainer = document.getElementById('searchResults');
+const moreResultsBtn = document.getElementById('moreResultsBtn');
+
+function renderSearchResults(results) {
+  searchResults.innerHTML = '';
+
+  const limitedResults = results.slice(0, 5);
+
+  if (limitedResults.length === 0) {
+    searchResults.textContent = 'Sonuç bulunamadı.';
+    moreResultsBtn.style.display = 'none';
+    return;
+  }
+
+  limitedResults.forEach(item => {
+    const div = document.createElement('div');
+    const a = document.createElement('a');
+    a.href = item.url;
+    a.textContent = item.title;
+    div.appendChild(a);
+    searchResults.appendChild(div);
+  });
+
+  if (results.length > 0) {
+    moreResultsBtn.style.display = 'block';
+  } else {
+    moreResultsBtn.style.display = 'none';
+  }
+}
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase().trim();
+
+  if (!query) {
+    searchResults.innerHTML = '';
+    moreResultsBtn.style.display = 'none';
+    return;
+  }
+
+  // pages objesini dizi haline getir
+  const allPages = Object.values(pages).flat();
+
+  // filtrele
+  const filtered = allPages.filter(p => p.title.toLowerCase().includes(query));
+
+  renderSearchResults(filtered);
+});
+
+moreResultsBtn.addEventListener('click', () => {
+  const currentSearchTerm = searchInput.value.trim();
+  if (currentSearchTerm) {
+    window.location.href = `more-results.html?search=${encodeURIComponent(currentSearchTerm)}`;
+  }
+});
+
+
+
 
 renderPopularSearches();

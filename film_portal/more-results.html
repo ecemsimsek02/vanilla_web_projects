@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daha Fazla Sonuç</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; margin: 0; padding: 20px; }
+    #categories { width: 200px; border-right: 1px solid #ccc; padding-right: 10px; }
+    #categories span { display: block; padding: 8px; cursor: pointer; }
+    #categories span.active { background-color: #007bff; color: white; }
+    #mainContent { flex: 1; padding-left: 20px; }
+    #searchTerm { font-weight: bold; margin-bottom: 10px; }
+    #results div { margin-bottom: 8px; }
+    #results a { color: #007bff; text-decoration: none; }
+    #results a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div id="categories"></div>
+  <div id="mainContent">
+    <div>Aranan Kelime: <span id="searchTerm"></span></div>
+    <div id="results"></div>
+  </div>
+
+  <script src="more-results.js"></script>
+</body>
+</html>

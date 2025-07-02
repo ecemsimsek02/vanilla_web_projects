@@ -10,24 +10,29 @@
   <div class="container">
     <h1>🎥 Discover</h1>
    <div class="search-area">
-     <input type="text" id="search" placeholder="Search..." />
+     <div class="search-input-wrapper">
+       <input type="text" id="search" placeholder="Search..." />
+       <button id="searchBtn" class="search-icon">🔍</button>
+     </div>
+ <div class="search-extended hidden">
+  <div class="custom-links">
+    <a href="e-hizmetler.html" class="tag">e-Hizmetler</a>
+    <a href="kurum_portalları.html" class="tag">Kurum Portalları</a>
+    <a href="belediye_hizmetleri.html" class="tag">Belediye Hizmetleri</a>
+    <a href="kurumların_sunduğu.html" class="tag">Kurumların Sunduğu</a>
+    <a href="kurum_adında.html" class="tag">Kurum Adında Ara</a>
+    <a href="belediye_adında.html" class="tag">Belediye Adında Ara</a>
+  </div>
 
-     <div class="search-extended hidden">
-      <div class="tags">
-        <span class="tag active" data-type="films">Films</span>
-        <span class="tag" data-type="series">Series</span>
-        <span class="tag" data-type="directors">Directors</span>
-        <span class="tag" data-type="documentaries">Documentaries</span>
-      </div>
+  <button id="createList"  style="display: none;">Create Favorite Films List</button>
+  <a href="favorite.html" style="display: none;"  class="fav-link">Go to My Favorites</a>
 
-      <button id="createList">Create Favorite Films List</button>
-      <a href="favorite.html" class="fav-link">Go to My Favorites</a>
-    
-      <div id="results"></div>
+  <ul id="searchResults"></ul>
+  <button id="moreResultsBtn" style="display:none;">Daha Fazla Sonuç</button>
 
-      <h3 id="popularTitle">Popular Searches</h3>
-      <ul id="popular" class="popular-searches"></ul>
-    </div>
+  <h3 id="popularTitle">Popular Searches</h3>
+  <ul id="popular" class="popular-searches"></ul>
+</div>
   </div>
 
   </div>
